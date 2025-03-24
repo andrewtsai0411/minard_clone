@@ -19,19 +19,7 @@ class CreateMinardDB:
         self.column_names_troop = adjusted_column_names[7:]
 
     def create_city_dataframe(self):
-        '''原分段程式碼
-        i = 6
-        longitudes, latitudes, cities = [], [], []
-        while i <= 25:
-            long, lat, city = lines[i].split()[:3]
-            longitudes.append(float(long))
-            latitudes.append(float(lat))
-            cities.append(city)
-            i += 1
-        city_data = (longitudes, latitudes, cities)
-        city_df = pd.DataFrame()
-        for column_name, data in zip(column_names_city, city_data):
-            city_df[column_name] = data'''
+        # 抓6-25列
         i = 6
         longitudes, latitudes, cities = [], [], []
         while i <= 25:
@@ -47,24 +35,6 @@ class CreateMinardDB:
         return city_df
 
     def create_temperature_dataframe(self):
-        '''原分段程式碼
-        i = 6
-        longitudes, temperatures, days, dates = [], [], [], []
-        while i <= 14:
-            lines_split = lines[i].split()
-            longitudes.append(float(lines_split[3]))
-            temperatures.append(int(lines_split[4]))
-            days.append(int(lines_split[5]))
-            if i == 10:
-                dates.append('Nov 24')
-            else:
-                date_str = lines_split[6] + ' ' + lines_split[7]
-                dates.append(date_str)
-            i += 1
-        temperature_data = (longitudes, temperatures, days, dates)
-        temperature_df = pd.DataFrame()
-        for column_name, data in zip(column_names_temperature, temperature_data):
-            temperature_df[column_name] = data'''
         i = 6
         longitudes, temperatures, days, dates = [], [], [], []
         while i <= 14:
@@ -102,12 +72,6 @@ class CreateMinardDB:
         return troop_df
    
     def create_database(self):
-        '''原分段程式碼
-        connection = sqlite3.connect('data/minard.db')
-        df_dict = {'city': city_df, 'temperature': temperature_df, 'troop': troop_df}
-        for k, v in df_dict.items():
-            v.to_sql(name=k, con=connection, index=False,if_exists='replace')
-        connection.close()'''
         connection = sqlite3.connect('data/minard.db')
         city_df = self.create_city_dataframe()
         temperature_df = self.create_temperature_dataframe()
